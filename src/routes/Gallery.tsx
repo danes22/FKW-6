@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { X } from "lucide-react";
 
-export const Route = createFileRoute("/Gallery")({
+export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
       { title: "Galeri — FKW 6" },
