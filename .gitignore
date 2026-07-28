@@ -1,4 +1,4 @@
-# Logs
+﻿# Logs
 logs
 *.log
 npm-debug.log*
@@ -39,6 +39,3 @@ dist-ssr
 .env.local
 
 .env
-
-src/routeTree-gen.ts
-src/routeTree.gen.ts
