@@ -5,7 +5,7 @@ import { X, Shirt, Palette, Sparkles, Check, Ban } from "lucide-react";
 import shirtAsset from "@/assets/fkw-shirt.png.asset.json.png";
 import clothesAsset from "@/assets/fkw-clothes.png.asset.json.jpeg";
 
-export const Route = createFileRoute("/design")({
+export const Route = createFileRoute("/desain")({
   head: () => ({
     meta: [
       { title: "Desain Baju — FKW 6" },

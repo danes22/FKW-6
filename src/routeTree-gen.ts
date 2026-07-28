@@ -9,25 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as GalleryRouteImport } from './routes/Gallery'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as DesainRouteImport } from './routes/desain'
 import { Route as PanitiaRouteImport } from './routes/panitia'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as DesainRouteImport } from './routes/desain'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const PanitiaRoute = PanitiaRouteImport.update({
+  id: '/panitia',
+  path: '/panitia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
-  id: '/Gallery',
-  path: '/Gallery',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DesainRoute = DesainRouteImport.update({
@@ -35,71 +30,69 @@ const DesainRoute = DesainRouteImport.update({
   path: '/desain',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PanitiaRoute = PanitiaRouteImport.update({
-  id: '/panitia',
-  path: '/panitia',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/Gallery': typeof GalleryRoute
   '/about': typeof AboutRoute
   '/desain': typeof DesainRoute
+  '/gallery': typeof GalleryRoute
   '/panitia': typeof PanitiaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/Gallery': typeof GalleryRoute
   '/about': typeof AboutRoute
   '/desain': typeof DesainRoute
+  '/gallery': typeof GalleryRoute
   '/panitia': typeof PanitiaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/Gallery': typeof GalleryRoute
   '/about': typeof AboutRoute
   '/desain': typeof DesainRoute
+  '/gallery': typeof GalleryRoute
   '/panitia': typeof PanitiaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/Gallery' | '/about' | '/desain' | '/panitia'
+  fullPaths: '/' | '/about' | '/desain' | '/gallery' | '/panitia'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/Gallery' | '/about' | '/desain' | '/panitia'
-  id: '__root__' | '/' | '/Gallery' | '/about' | '/desain' | '/panitia'
+  to: '/' | '/about' | '/desain' | '/gallery' | '/panitia'
+  id: '__root__' | '/' | '/about' | '/desain' | '/gallery' | '/panitia'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GalleryRoute: typeof GalleryRoute
   AboutRoute: typeof AboutRoute
   DesainRoute: typeof DesainRoute
+  GalleryRoute: typeof GalleryRoute
   PanitiaRoute: typeof PanitiaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/panitia': {
+      id: '/panitia'
+      path: '/panitia'
+      fullPath: '/panitia'
+      preLoaderRoute: typeof PanitiaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Gallery': {
-      id: '/Gallery'
-      path: '/Gallery'
-      fullPath: '/Gallery'
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
       preLoaderRoute: typeof GalleryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/desain': {
@@ -109,11 +102,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesainRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/panitia': {
-      id: '/panitia'
-      path: '/panitia'
-      fullPath: '/panitia'
-      preLoaderRoute: typeof PanitiaRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -121,9 +121,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GalleryRoute: GalleryRoute,
   AboutRoute: AboutRoute,
   DesainRoute: DesainRoute,
+  GalleryRoute: GalleryRoute,
   PanitiaRoute: PanitiaRoute,
 }
 export const routeTree = rootRouteImport
@@ -131,10 +131,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
