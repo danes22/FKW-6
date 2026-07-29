@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Mail, MapPin } from "lucide-react";
+import { Instagram, MapPin } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -27,8 +27,8 @@ export function SiteFooter() {
           </h4>
           <ul className="mt-4 space-y-2 text-sm text-background/70">
             <li><Link to="/about" className="hover:text-gold">Tentang FKW</Link></li>
-            <li><Link to="/design" className="hover:text-gold">Design</Link></li>
-            <li><Link to="/Gallery" className="hover:text-gold">Gallery</Link></li>
+            <li><Link to="/desain" className="hover:text-gold">Design</Link></li>
+            <li><Link to="/gallery" className="hover:text-gold">Gallery</Link></li>
           </ul>
         </div>
 
@@ -48,7 +48,7 @@ export function SiteFooter() {
                 @festivalkarmawairagya
               </a>
             </li>
-            
+
             <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> Lapangan Utama Smansia</li>
           </ul>
         </div>
