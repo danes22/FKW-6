@@ -6,7 +6,7 @@ import {
   uploadPhoto,
   deletePhoto,
   reorderPhotos,
-  type GalleryPhoto,
+  type GalleryItem,
 } from "@/lib/gallery";
 
 export const Route = createFileRoute("/panitia")({
@@ -20,12 +20,12 @@ export const Route = createFileRoute("/panitia")({
   component: PanitiaPage,
 });
 
-const YEARS = [2025, 2026] as const;
+const YEARS = ["2025", "2026"] as const;
 type Year = (typeof YEARS)[number];
 
 function PanitiaPage() {
-  const [year, setYear] = useState<Year>(2025);
-  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
+  const [year, setYear] = useState<Year>("2025");
+  const [photos, setPhotos] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState({ done: 0, total: 0 });
@@ -70,7 +70,7 @@ function PanitiaPage() {
     }
   }
 
-  async function handleDelete(p: GalleryPhoto) {
+  async function handleDelete(p: GalleryItem) {
     if (!confirm("Hapus foto ini?")) return;
     try {
       await deletePhoto(p);
@@ -207,7 +207,7 @@ function PanitiaPage() {
                   className="group relative overflow-hidden rounded-2xl border border-border/40 bg-muted shadow-elegant"
                 >
                   <img
-                    src={p.public_url}
+                    src={p.image_url}
                     alt=""
                     className="aspect-square w-full object-cover"
                     loading="lazy"

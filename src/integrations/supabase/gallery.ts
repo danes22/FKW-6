@@ -6,7 +6,6 @@ export type GalleryItem = {
   image_url: string;
   storage_path: string;
   ratio: number;
-  position: number;
   created_at: string;
 };
 
@@ -18,7 +17,6 @@ export async function listPhotos(year: string): Promise<GalleryItem[]> {
     .from("gallery_items")
     .select("*")
     .eq("year", year)
-    .order("position", { ascending: true })
     .order("created_at", { ascending: true });
   if (error) throw error;
   return data as GalleryItem[];
@@ -53,15 +51,6 @@ export async function uploadPhoto(year: string, file: File): Promise<GalleryItem
 
   const ratio = await getImageRatio(file);
 
-  // Place at end
-  const { data: max } = await supabase
-    .from("gallery_items")
-    .select("position")
-    .eq("year", year)
-    .order("position", { ascending: false })
-    .limit(1);
-  const nextPos = (max?.[0]?.position ?? -1) + 1;
-
   const { data, error } = await supabase
     .from("gallery_items")
     .insert({
@@ -69,7 +58,6 @@ export async function uploadPhoto(year: string, file: File): Promise<GalleryItem
       image_url: signed.signedUrl,
       storage_path: path,
       ratio,
-      position: nextPos,
     })
     .select("*")
     .single();
@@ -81,12 +69,4 @@ export async function deletePhoto(photo: GalleryItem): Promise<void> {
   await supabase.storage.from(BUCKET).remove([photo.storage_path]);
   const { error } = await supabase.from("gallery_items").delete().eq("id", photo.id);
   if (error) throw error;
-}
-
-export async function reorderPhotos(photos: GalleryItem[]): Promise<void> {
-  await Promise.all(
-    photos.map((p, idx) =>
-      supabase.from("gallery_items").update({ position: idx }).eq("id", p.id),
-    ),
-  );
 }

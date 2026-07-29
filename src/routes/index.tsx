@@ -125,7 +125,7 @@ function Index() {
               </h2>
             </Reveal>
             <Reveal delay={120}>
-              <Link to="/Gallery" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+              <Link to="/gallery" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
                 Buka Galeri <ArrowRight className="h-4 w-4" />
               </Link>
             </Reveal>
@@ -166,7 +166,7 @@ function Index() {
                 </p>
               </div>
               <Link
-                to="/design"
+                to="/desain"
                 className="inline-flex items-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-gold-foreground shadow-glow transition-transform hover:scale-105"
               >
                 Lihat Desain <ArrowRight className="h-4 w-4" />
