@@ -5,8 +5,8 @@ import { Menu, X } from "lucide-react";
 const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "Tentang" },
-  { to: "/design", label: "Desain Baju" },    
-  { to: "/Gallery", label: "Galeri" },        
+  { to: "/desain", label: "Desain Baju" },    
+  { to: "/gallery", label: "Galeri" },        
 ] as const;
 
 export function SiteHeader() {
